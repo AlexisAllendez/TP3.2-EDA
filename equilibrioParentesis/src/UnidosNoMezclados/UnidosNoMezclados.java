@@ -16,6 +16,7 @@ public class UnidosNoMezclados {
 
     }
 
+    
     public void llenarPilas(Stack<Integer> pila) {
         //LLENADO DE PILAS
         for (int i = 0; i <= 20; i++) {
@@ -56,14 +57,34 @@ public class UnidosNoMezclados {
         }
         return bandera;
     }
+    
+
+    public Integer verUltimo(Stack<Integer> pila) {
+        if (!pilaVacia(pila)) {
+            int ultimoElementoIndex = pila.size() - 1;
+            return  pila.get(ultimoElementoIndex);
+        } else {
+            System.out.println("La pila esta vacia, no hay ultimo elemento");
+            return null;
+        }
+    }
+    
 
     public void unirPilas(Stack<Integer> pila1,Stack<Integer>pila2,Stack<Integer>pilaFinal){
-    
-        while(!pilaVacia(pila1) && !pilaVacia(pila2)){
-        
-    
+            // EJECUTAMOS EL BUCLE HASTA QUE AMBAS PILAS ESTEN VACIAS
+        while (!pilaVacia(pila1) && !pilaVacia(pila2)) {
+            //COMPARAMOS AMBOS VALORES PARA LUEGO AGREGARLOS A LA PILA FINAL 
+            if (verUltimo(pila1) >= verUltimo(pila2)) {
+                pilaFinal.push(pila1.pop());
+            }else{
+                pilaFinal.push(pila2.pop());
+            }
+
         }
+        //LLAMAMOS AL METODO DE ORDENAMIENTO, ORDENAMOS PARA DESPUES IMPRIMIR LA PILA ORDENADA 
+        ordenarPilas(pilaFinal);
         
+        System.out.println("La pila resultante es : " + pilaFinal);
     }
 
 }

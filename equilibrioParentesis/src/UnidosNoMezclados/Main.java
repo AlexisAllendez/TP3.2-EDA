@@ -15,6 +15,9 @@ public class Main {
 
         p1.ordenarPilas(pila1);
         p1.ordenarPilas(pila2);
+        
+        
+        p1.unirPilas(pila1,pila2,pilaFinal);
 
     }
 
