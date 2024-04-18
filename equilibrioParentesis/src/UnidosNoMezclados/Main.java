@@ -9,13 +9,17 @@ public class Main {
         Stack<Integer> pila2 = new Stack<>();
         Stack<Integer> pilaFinal = new Stack<>();
         UnidosNoMezclados p1 = new UnidosNoMezclados();
-
+        System.out.print("La pila 1 desordenada es : ");
         p1.llenarPilas(pila1);
+        System.out.print("La pila 2 desordenada es : ");
         p1.llenarPilas(pila2);
 
         p1.ordenarPilas(pila1);
         p1.ordenarPilas(pila2);
         
+        System.out.println("La pila 1 ordenada es : " + p1.mostrarPila(pila1));
+        System.out.println("La pila 2 ordenada es : " + p1.mostrarPila(pila2));
+    
         
         p1.unirPilas(pila1,pila2,pilaFinal);
 

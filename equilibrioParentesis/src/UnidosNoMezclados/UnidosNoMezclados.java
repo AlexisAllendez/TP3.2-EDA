@@ -20,13 +20,14 @@ public class UnidosNoMezclados {
     public void llenarPilas(Stack<Integer> pila) {
         //LLENADO DE PILAS
         for (int i = 0; i <= 20; i++) {
-            pila.push((int) (Math.random() * 15));
+            pila.push((int) (Math.random() * 100)+1);
 
         }
 
         System.out.println(pila);
 
     }
+    
 
     public void ordenarPilas(Stack<Integer> pila) {
         int tamano = pila.size();
@@ -45,10 +46,15 @@ public class UnidosNoMezclados {
             }
 
         }
-        System.out.println("Pila ordenada" + pila);
+       
 
     }
 
+    public Stack mostrarPila(Stack<Integer> pila){
+      
+        return pila;
+    }
+    
     public boolean pilaVacia(Stack<Integer> pila) {
 //        return pila.isEmpty();
         boolean bandera = false;
@@ -69,6 +75,7 @@ public class UnidosNoMezclados {
         }
     }
     
+    
 
     public void unirPilas(Stack<Integer> pila1,Stack<Integer>pila2,Stack<Integer>pilaFinal){
             // EJECUTAMOS EL BUCLE HASTA QUE AMBAS PILAS ESTEN VACIAS
@@ -82,9 +89,9 @@ public class UnidosNoMezclados {
 
         }
         //LLAMAMOS AL METODO DE ORDENAMIENTO, ORDENAMOS PARA DESPUES IMPRIMIR LA PILA ORDENADA 
-        ordenarPilas(pilaFinal);
+       ordenarPilas(pilaFinal);
         
-        System.out.println("La pila resultante es : " + pilaFinal);
+        System.out.println("La pila resultante es : " + pilaFinal );
     }
 
 }
