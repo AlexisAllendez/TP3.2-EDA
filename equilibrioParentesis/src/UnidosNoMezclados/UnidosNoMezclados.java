@@ -1,4 +1,3 @@
-
 //. Unidos no mezclados
 //Se tienen 2 pilas con elementos ordenados de mayor a menor, se desea
 //pasar todos los elementos a una tercera pila en la que los elementos sigan
@@ -8,16 +7,9 @@ package UnidosNoMezclados;
 import java.util.Arrays;
 import java.util.Stack;
 
-import java.util.Arrays;
-
-import java.util.Arrays;
-
-import java.util.Arrays;
-
 public class UnidosNoMezclados {
-    private Integer[] pila1;
-    private Integer[] pila2;
-    private Integer[] pila3;
+
+    private Integer[] pila;
     private int size;
     private int cursor;
 
@@ -26,43 +18,56 @@ public class UnidosNoMezclados {
 
     
     
-    
-    public UnidosNoMezclados(int size) {
-        this.pila1 = new Integer[size];
-        this.pila2 = new Integer[size];
-        this.pila3 = new Integer[size];
+    public UnidosNoMezclados(Integer[] pila, int size, int cursor) {
+        this.pila = pila;
         this.size = size;
-        this.cursor = -1;
+        this.cursor = cursor;
     }
 
-  
-     public void push(Integer[]pila,int entero){
-        if(!PilaLlena()){
-            cursor++;
-            pila[cursor] = entero;
-//            pila.add(entero);
-        }else{System.out.println("La pila esta llena y no se puede agregar mas elementos");}
-    }
-     
-     
-    public Integer pop(Integer[]pila){
-        if(!pilaVacia(pila)){
-            int retorno = verElemento(pila);
-            pila[cursor] = null;
-            cursor--;
-//            pila.removeLast();
-            return retorno;
+
+    
+public void push(Integer[] pila, int entero) {
+    boolean added = false; // Variable para controlar si se ha agregado el elemento
+
+    // Recorrer el arreglo de la pila
+    for (int i = 0; i < pila.length; i++) {
+        // Verificar si la posición actual es nula
+        if (pila[i] == null) {
+            pila[i] = entero; // Agregar el elemento en la posición actual
+            added = true; // Marcar que se ha agregado el elemento
+            break; // Salir del bucle una vez que se haya agregado el elemento
         }
-        System.out.println("La pila esta vacia y no se puede quitar mas elementos");
-        return null;
-        
-//        return pila.get(pila.size()-1);
+    }
+
+    // Verificar si no se pudo agregar el elemento (la pila está llena)
+    if (!added) {
+        System.out.println("La pila está llena y no se pueden agregar más elementos.");
+    }
+}
+    
+      public Integer pop(Integer[] pila) {
+        int lastIndex = ultimoIndiceValido(pila);
+        if (lastIndex >= 0) {
+            int retorno = pila[lastIndex];
+            pila[lastIndex] = null;
+            return retorno;
+        } else {
+            System.out.println("La pila está vacía y no se pueden quitar más elementos.");
+            return null;
+        }
     }
     
-    
-    public boolean pilaVacia(Integer[]pila){
-
-        return cursor < 0;
+   public static boolean pilaVacia(Integer[] pila) {
+        return pila == null || pila.length == 0;
+    }
+   
+   private int ultimoIndiceValido(Integer[] pila) {
+        for (int i = pila.length - 1; i >= 0; i--) {
+            if (pila[i] != null) {
+                return i;
+            }
+        }
+        return -1;
     }
     
     
@@ -72,76 +77,92 @@ public class UnidosNoMezclados {
 //        return pila.size() == this.size;
 
     }
-    public Integer verElemento(Integer[]pila){
-        if(!pilaVacia(pila)){
-            System.out.println(pila[cursor]);
-            return pila[cursor];
-//            System.out.println(pila.getLast());
-//              return pila.getLast();
+     public int verUltimo(Integer[] pila) {
+        // Verificamos si la pila está vacía
+        if (pilaVacia(pila)) {
+            return -1; // Retorna -1 si la pila está vacía
         }
-        System.out.println("La pila esta vacia y no se puede quitar mas elementos");
-        return null;
-    }
-    
 
-   
+        // Encontramos el último índice válido
+        for (int i = pila.length - 1; i >= 0; i--) {
+            if (pila[i] != null) {
+                return i;
+            }
+        }
+
+        // Si no se encuentra ningún elemento válido, retorna -1
+        return -1;
+    }
+
     public void llenarPilas(Integer[] pila) {
-        // LLENADO DEL ARREGLO CON UN BUCLE FOR
+
         for (int i = 0; i < pila.length; i++) {
-            pila[i] = (int) (Math.random() * 100) + 1;
+            pila[i] = (int) (Math.random() * 50 + 1);
         }
-            System.out.println(Arrays.toString(pila));
+
     }
 
-    
-
-    
-     public void ordenarPilas(Integer[]pila) {
-
-        for (int i = 0; i < pila.length - 1; i++) {
-            // Últimos i elementos ya están ordenados, así que no necesitamos compararlos
-            for (int j = 0; j < pila.length - i - 1; j++) {
-                // Comparamos el elemento actual con el siguiente
-                if (pila[j] > pila[j + 1]) {
-                    // Si el elemento actual es mayor que el siguiente, los intercambiamos
-                    int temporal = pila[j];
-                    pila[j] = pila[j + 1];
-                    pila[j + 1] = temporal;
+    public void mostrarPila(Integer[] pila) {
+        if (!pilaVacia(pila)) {
+            System.out.print("[");
+            for (int i = 0; i < pila.length; i++) {
+                System.out.print(pila[i]);
+                if (i < pila.length - 1) {
+                    System.out.print(", ");
                 }
-
             }
-
+            System.out.println("]");
+        } else {
+            System.out.println("La pila está vacía.");
         }
-        
-        System.out.println(Arrays.toString(pila));
-
     }
-    
-    public Integer[] mostrarPila(Integer[]pila){
-      
-        return pila;
-    }
-    
-    
 
-    
-
-    public void unirPilas(Integer[]pila1,Integer[]pila2,Integer[]pilaFinal){
-            // EJECUTAMOS EL BUCLE HASTA QUE AMBAS PILAS ESTEN VACIAS
-        while (!pilaVacia(pila1 )|| !pilaVacia(pila2)) {
-            //COMPARAMOS AMBOS VALORES PARA LUEGO AGREGARLOS A LA PILA FINAL 
-            if (verElemento(pila1) >= verElemento(pila2)) {
-                int aux = pop(pila1);
-                push(pilaFinal,aux);
-            } else {
-                int aux =pop(pila2);
-                push(pilaFinal,aux);
+    public void bubbleSort(Integer[] arreglo) {
+        int n = arreglo.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arreglo[j] > arreglo[j + 1]) {
+                    // Intercambiar elementos si están en el orden incorrecto
+                    int temp = arreglo[j];
+                    arreglo[j] = arreglo[j + 1];
+                    arreglo[j + 1] = temp;
+                }
             }
-
         }
-        //LLAMAMOS AL METODO DE ORDENAMIENTO, ORDENAMOS PARA DESPUES IMPRIMIR LA PILA ORDENADA 
-    //   ordenarPilas(pilaFinal);
-        
-         System.out.println(Arrays.toString(pilaFinal));
     }
+
+public void unirPilas(Integer[] pila1, Integer[] pila2, Integer[] pilaFinal) {
+    // Inicializamos los índices para cada pila
+    int indexPila1 = verUltimo(pila1);
+    int indexPila2 = verUltimo(pila2);
+    int indexPilaFinal = 0;
+
+    // Verificamos si las pilas no están vacías
+    while (indexPila1 >= 0 && indexPila2 >= 0) {
+        // Comparamos los elementos en la parte superior de ambas pilas
+        if (pila1[indexPila1] >= pila2[indexPila2]) {
+            // Agregamos el elemento de pila1 a pilaFinal
+            pilaFinal[indexPilaFinal++] = pila1[indexPila1--]; 
+        } else {
+            // Agregamos el elemento de pila2 a pilaFinal
+            pilaFinal[indexPilaFinal++] = pila2[indexPila2--]; 
+        }
+    }
+
+    // Agregamos los elementos restantes de pila1 a pilaFinal (si hay alguno)
+    while (indexPila1 >= 0) {
+        pilaFinal[indexPilaFinal++] = pila1[indexPila1--];
+    }
+
+    // Agregamos los elementos restantes de pila2 a pilaFinal (si hay alguno)
+    while (indexPila2 >= 0) {
+        pilaFinal[indexPilaFinal++] = pila2[indexPila2--];
+    }
+        
+    //ordenamos
+        bubbleSort(pilaFinal);
+        
+    // Mostramos la pila final
+    System.out.println("La pila resultante es : " + Arrays.toString(pilaFinal));
+}
 }
